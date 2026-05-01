@@ -21,7 +21,7 @@ Las que abro con `Win+R` cuando no quiero perder tiempo con la interfaz. Casi to
 
 | Comando | Para que sirve | Requiere admin |
 |---|---|---|
-| `secopl.msc` | Politicas de seguridad local | Si |
+| `secpol.msc` | Politicas de seguridad local | Si |
 | `gpedit.msc` | Editor de politicas de grupo local. No esta en Home | Si |
 | `rsop.msc` | Resultado aplicado de politicas en la maquina | Recomendado |
 | `lusrmgr.msc` | Usuarios y grupos locales. No esta en Home | Si |
