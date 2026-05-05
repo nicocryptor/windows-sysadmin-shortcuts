@@ -9,3 +9,10 @@ $RECYCLE.BIN/
 .idea/
 *.swp
 *~
+
+# Salida de scripts
+out/
+*.evtx
+*.csv
+*.log
+*.tmp
