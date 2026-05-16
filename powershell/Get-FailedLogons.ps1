@@ -24,8 +24,8 @@ param(
     [int]$MinAttempts = 3
 )
 
-$hour = [Math]::Max(1, [Math]::Ceiling($Minutes / 60))
-$rawEvents = & "$PSScriptRoot\Get-SecurityEvents.ps1" -Hour $hour -EventIds 4625 -MaxEvents 5000
+$hours = [Math]::Max(1, [Math]::Ceiling($Minutes / 60))
+$rawEvents = & "$PSScriptRoot\Get-SecurityEvents.ps1" -Hours $hours -EventIds 4625 -MaxEvents 5000
 
 if (-not $rawEvents) { return }
 

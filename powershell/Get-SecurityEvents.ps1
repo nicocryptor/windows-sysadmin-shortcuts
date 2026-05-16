@@ -10,7 +10,7 @@ Los EventIds default son los de autenticacion y administracion de cuentas
 que mas reviso: logon (4624), logon fallido (4625), logoff (4634), elevacion
 (4672), creacion de cuenta (4720), Kerberos TGT (4768) y TGS (4769), NTLM (4776).
 
-.PARAMETER Hour
+.PARAMETER Hours
 Cantidad de horas hacia atras. Default 24.
 
 .PARAMETER EventIds
@@ -23,20 +23,20 @@ Equipo a consultar. Default: localhost.
 Tope de eventos devueltos. Default 1000.
 
 .EXAMPLE
-.\Get-SecurityEvents.ps1 -Hour 1 | Out-GridView
+.\Get-SecurityEvents.ps1 -Hours 1 | Out-GridView
 
 .EXAMPLE
-.\Get-SecurityEvents.ps1 -Hour 168 -EventIds 4625 | Export-Csv .\out\failed.csv -NoTypeInformation
+.\Get-SecurityEvents.ps1 -Hours 168 -EventIds 4625 | Export-Csv .\out\failed.csv -NoTypeInformation
 #>
 [CmdletBinding()]
 param(
-    [int]$Hour = 24,
+    [int]$Hours = 24,
     [int[]]$EventIds = @(4624, 4625, 4634, 4672, 4720, 4768, 4769, 4776),
     [string]$ComputerName = $env:COMPUTERNAME,
     [int]$MaxEvents = 1000
 )
 
-$start = (Get-Date).AddHours(-$Hour)
+$start = (Get-Date).AddHours(-$Hours)
 
 $filter = @{
     LogName   = 'Security'

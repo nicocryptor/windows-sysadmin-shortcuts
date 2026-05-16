@@ -15,11 +15,11 @@ Carpeta de salida. Si no existe la crea. Default: .\out
 .PARAMETER Format
 evtx, csv o both. Default both.
 
-.PARAMETER Hour
+.PARAMETER Hours
 Si se pasa, solo exporta eventos de las ultimas N horas.
 
 .EXAMPLE
-.\Export-LocalLogs.ps1 -Hour 48
+.\Export-LocalLogs.ps1 -Hours 48
 
 .EXAMPLE
 .\Export-LocalLogs.ps1 -LogNames Security -Format evtx -OutputPath D:\evidencia
@@ -30,7 +30,7 @@ param(
     [string]$OutputPath = (Join-Path (Get-Location) 'out'),
     [ValidateSet('evtx', 'csv', 'both')]
     [string]$Format = 'both',
-    [int]$Hour = 0
+    [int]$Hours = 0
 )
 
 if (-not (Test-Path $OutputPath)) {
@@ -44,8 +44,8 @@ foreach ($log in $LogNames) {
 
     if ($Format -in 'evtx', 'both') {
         $evtxFile = Join-Path $OutputPath "$baseName.evtx"
-        $query    = if ($Hour -gt 0) {
-            $ms = [int]([TimeSpan]::FromHours($Hour).TotalMilliseconds)
+        $query    = if ($Hours -gt 0) {
+            $ms = [int]([TimeSpan]::FromHours($Hours).TotalMilliseconds)
             "*[System[TimeCreated[timediff(@SystemTime) <= $ms]]]"
         } else { '*' }
 
@@ -62,7 +62,7 @@ foreach ($log in $LogNames) {
     if ($Format -in 'csv', 'both') {
         $csvFile = Join-Path $OutputPath "$baseName.csv"
         $filter  = @{ LogName = $log }
-        if ($Hour -gt 0) { $filter.StartTime = (Get-Date).AddHours(-$Hour) }
+        if ($Hours -gt 0) { $filter.StartTime = (Get-Date).AddHours(-$Hours) }
 
         try {
             Get-WinEvent -FilterHashtable $filter -ErrorAction Stop |
